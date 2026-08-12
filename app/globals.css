@@ -1,11 +1,25 @@
 @import "tailwindcss";
 
+.font-handwriting {
+  font-family: var(--font-bricolage);
+}
+
+.font-dancing {
+  font-family: var(--font-bricolage);
+}
+
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --color-accent: #FF9900;
-  --color-editorial-bg: #F8F8F5;
+  --color-accent: #ff9900;
+  --color-editorial-bg: #f8f8f5;
   --color-text-primary: #111111;
   --color-text-secondary: #555555;
 }
@@ -47,7 +61,8 @@ body {
 .spark {
   position: absolute;
   opacity: 0;
-  animation: floatUp 6s ease-in-out forwards,
+  animation:
+    floatUp 6s ease-in-out forwards,
     appearGlow 1.2s ease-out forwards;
 }
 
@@ -56,15 +71,40 @@ body {
   height: 120px;
   border-radius: 50% 50% 45% 45%;
   background: linear-gradient(180deg, #ff7396 0%, #ff3b5b 100%);
-  box-shadow: inset -8px -10px 18px rgba(255, 255, 255, 0.45),
+  box-shadow:
+    inset -8px -10px 18px rgba(255, 255, 255, 0.45),
     0 15px 35px rgba(0, 0, 0, 0.18);
 }
 
-.balloon-1 { left: 18%; top: 75%; animation-delay: 0.1s; }
-.balloon-2 { left: 35%; top: 88%; animation-delay: 0.3s; background: linear-gradient(180deg, #ffd25b 0%, #ffb200 100%); }
-.balloon-3 { left: 62%; top: 82%; animation-delay: 0.2s; background: linear-gradient(180deg, #7affb3 0%, #3ce87b 100%); }
-.balloon-4 { left: 78%; top: 90%; animation-delay: 0.4s; background: linear-gradient(180deg, #6f8cff 0%, #4a65ff 100%); }
-.balloon-5 { left: 50%; top: 95%; animation-delay: 0.5s; background: linear-gradient(180deg, #ff8cff 0%, #d54cff 100%); }
+.balloon-1 {
+  left: 18%;
+  top: 75%;
+  animation-delay: 0.1s;
+}
+.balloon-2 {
+  left: 35%;
+  top: 88%;
+  animation-delay: 0.3s;
+  background: linear-gradient(180deg, #ffd25b 0%, #ffb200 100%);
+}
+.balloon-3 {
+  left: 62%;
+  top: 82%;
+  animation-delay: 0.2s;
+  background: linear-gradient(180deg, #7affb3 0%, #3ce87b 100%);
+}
+.balloon-4 {
+  left: 78%;
+  top: 90%;
+  animation-delay: 0.4s;
+  background: linear-gradient(180deg, #6f8cff 0%, #4a65ff 100%);
+}
+.balloon-5 {
+  left: 50%;
+  top: 95%;
+  animation-delay: 0.5s;
+  background: linear-gradient(180deg, #ff8cff 0%, #d54cff 100%);
+}
 
 .balloon::after {
   content: "";
@@ -87,10 +127,30 @@ body {
   animation: ribbonSwing 4s ease-in-out infinite;
 }
 
-.ribbon-1 { left: 12%; top: 30%; animation-delay: 0.2s; transform: rotate(18deg); }
-.ribbon-2 { left: 28%; top: 20%; animation-delay: 0.5s; transform: rotate(-12deg); }
-.ribbon-3 { left: 65%; top: 18%; animation-delay: 0.35s; transform: rotate(8deg); }
-.ribbon-4 { left: 82%; top: 32%; animation-delay: 0.6s; transform: rotate(-22deg); }
+.ribbon-1 {
+  left: 12%;
+  top: 30%;
+  animation-delay: 0.2s;
+  transform: rotate(18deg);
+}
+.ribbon-2 {
+  left: 28%;
+  top: 20%;
+  animation-delay: 0.5s;
+  transform: rotate(-12deg);
+}
+.ribbon-3 {
+  left: 65%;
+  top: 18%;
+  animation-delay: 0.35s;
+  transform: rotate(8deg);
+}
+.ribbon-4 {
+  left: 82%;
+  top: 32%;
+  animation-delay: 0.6s;
+  transform: rotate(-22deg);
+}
 
 .ribbon::before,
 .ribbon::after {
@@ -103,45 +163,103 @@ body {
   top: 70px;
 }
 
-.ribbon::before { left: -8px; }
-.ribbon::after { right: -8px; }
+.ribbon::before {
+  left: -8px;
+}
+.ribbon::after {
+  right: -8px;
+}
 
 .spark {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: radial-gradient(circle, #fff8b5 0%, #fffa62 40%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(
+    circle,
+    #fff8b5 0%,
+    #fffa62 40%,
+    rgba(255, 255, 255, 0) 70%
+  );
   box-shadow: 0 0 22px rgba(255, 234, 145, 0.6);
   animation: sparkFly 1.5s ease-out forwards;
 }
 
-.spark-1 { left: 20%; top: 20%; animation-delay: 0.2s; }
-.spark-2 { left: 80%; top: 24%; animation-delay: 0.35s; }
-.spark-3 { left: 42%; top: 12%; animation-delay: 0.1s; }
-.spark-4 { left: 60%; top: 32%; animation-delay: 0.45s; }
-.spark-5 { left: 50%; top: 8%; animation-delay: 0.3s; }
+.spark-1 {
+  left: 20%;
+  top: 20%;
+  animation-delay: 0.2s;
+}
+.spark-2 {
+  left: 80%;
+  top: 24%;
+  animation-delay: 0.35s;
+}
+.spark-3 {
+  left: 42%;
+  top: 12%;
+  animation-delay: 0.1s;
+}
+.spark-4 {
+  left: 60%;
+  top: 32%;
+  animation-delay: 0.45s;
+}
+.spark-5 {
+  left: 50%;
+  top: 8%;
+  animation-delay: 0.3s;
+}
 
 @keyframes floatUp {
-  0% { transform: translateY(0) scale(0.95); opacity: 0; }
-  10% { opacity: 1; }
-  100% { transform: translateY(-120vh) scale(1.05); opacity: 0.05; }
+  0% {
+    transform: translateY(0) scale(0.95);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.05);
+    opacity: 0.05;
+  }
 }
 
 @keyframes appearGlow {
-  0% { opacity: 0; filter: blur(12px); }
-  30% { opacity: 1; filter: blur(0); }
-  100% { opacity: 0.8; }
+  0% {
+    opacity: 0;
+    filter: blur(12px);
+  }
+  30% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0.8;
+  }
 }
 
 @keyframes ribbonSwing {
-  0%, 100% { transform: rotate(0deg) translateY(0); }
-  50% { transform: rotate(12deg) translateY(10px); }
+  0%,
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(12deg) translateY(10px);
+  }
 }
 
 @keyframes sparkFly {
-  0% { transform: scale(0.4) translateY(0); opacity: 0; }
-  20% { opacity: 1; }
-  100% { transform: scale(1.3) translateY(-80px); opacity: 0; }
+  0% {
+    transform: scale(0.4) translateY(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.3) translateY(-80px);
+    opacity: 0;
+  }
 }
 
 .music-card {
@@ -149,6 +267,12 @@ body {
 }
 
 @keyframes musicCardIntro {
-  0% { opacity: 0; transform: translate(-50%, 24px) scale(0.95); }
-  100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 24px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
 }

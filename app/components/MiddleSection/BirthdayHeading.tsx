@@ -35,14 +35,14 @@ const BirthdayHeading: React.FC<BirthdayHeadingProps> = ({
   }, []);
 
   return (
-    <div className="mb-6 md:mb-8">
+    <div className="mb-4 xs:mb-5 sm:mb-6 md:mb-8">
       <div
         ref={(el) => {
           lineRefs.current[0] = el;
         }}
-        className="font-bricolage font-bold text-black"
+        className="font-bricolage font-bold text-black px-2 xs:px-0"
         style={{
-          fontSize: "clamp(3.5rem, 8vw, 7rem)",
+          fontSize: "clamp(2.5rem, 8vw, 7rem)",
           lineHeight: "0.9",
           letterSpacing: "-0.02em",
         }}
@@ -54,9 +54,9 @@ const BirthdayHeading: React.FC<BirthdayHeadingProps> = ({
         ref={(el) => {
           lineRefs.current[1] = el;
         }}
-        className="font-bricolage font-bold text-black"
+        className="font-bricolage font-bold text-black px-2 xs:px-0"
         style={{
-          fontSize: "clamp(3.5rem, 8vw, 7rem)",
+          fontSize: "clamp(2.5rem, 8vw, 7rem)",
           lineHeight: "0.9",
           letterSpacing: "-0.02em",
         }}
@@ -68,9 +68,9 @@ const BirthdayHeading: React.FC<BirthdayHeadingProps> = ({
         ref={(el) => {
           lineRefs.current[2] = el;
         }}
-        className="font-bricolage font-bold"
+        className="font-bricolage font-bold px-2 xs:px-0"
         style={{
-          fontSize: "clamp(3.5rem, 8vw, 7rem)",
+          fontSize: "clamp(2.5rem, 8vw, 7rem)",
           lineHeight: "0.9",
           letterSpacing: "-0.02em",
           color: "#FF9900",

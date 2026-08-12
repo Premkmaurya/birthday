@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import PreLoader from "./components/PreLoader";
 import HeroSection from "./components/HeroSection";
 import MiddleSection from "./components/MiddleSection";
+import LastSection from "./components/LastSection";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -40,6 +41,7 @@ export default function Home() {
         <>
           <HeroSection image={image} setImage={setImage} />
           <MiddleSection />
+          <LastSection />
         </>
       )}
     </main>

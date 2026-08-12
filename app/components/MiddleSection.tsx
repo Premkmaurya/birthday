@@ -4,14 +4,21 @@ import DateLabel from "./MiddleSection/DateLabel";
 import BirthdayHeading from "./MiddleSection/BirthdayHeading";
 import AccentLine from "./MiddleSection/AccentLine";
 import BirthdayMessage from "./MiddleSection/BirthdayMessage";
+import CircularGallery from "./CircularGallery";
 import { birthdayConfig } from "@/app/config/birthday";
 
 const MiddleSection: React.FC = () => {
   const { name, date, heading, message, footerLabel } = birthdayConfig;
 
+  // Gallery items from public photos
+  const galleryItems = [
+    { image: '/photos/photo1.jpg', text: 'Cherished Moment' },
+    { image: '/photos/photo2.jpg', text: 'Sweet Memory' },
+  ];
+
   return (
     <section
-      className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-0"
+      className="min-h-screen flex items-center justify-center px-3 xs:px-4 sm:px-6 md:px-8 lg:px-0"
       style={{
         backgroundColor: "#F8F8F5",
       }}
@@ -46,8 +53,18 @@ const MiddleSection: React.FC = () => {
           </div>
 
           {/* Right Section - Visual Composition */}
-          <div className="relative h-96 md:h-full md:min-h-screen flex items-center justify-center bg-gray-200 rounded-2xl overflow-hidden">
-
+          <div className="relative h-96 md:h-full md:min-h-screen flex items-center justify-center rounded-2xl overflow-hidden">
+            <div style={{ height: '600px', position: 'relative', width: '100%' }}>
+              <CircularGallery
+                items={galleryItems}
+                bend={3}
+                textColor="#ffffff"
+                borderRadius={0.05}
+                scrollEase={0.02}
+                font="bold 30px Figtree"
+                fontUrl={undefined}
+              />
+            </div>
           </div>
         </div>
 
@@ -70,16 +87,17 @@ const MiddleSection: React.FC = () => {
           <BirthdayMessage message={message} />
 
           {/* Visual Section */}
-          <div className="mt-8 relative h-72 bg-gray-200 rounded-2xl overflow-hidden">
-            <div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center">
-              <div className="text-center">
-                <p className="text-gray-600 text-lg font-medium">
-                  Photo Gallery
-                </p>
-                <p className="text-gray-500 text-sm mt-2">
-                  (Images & Memories)
-                </p>
-              </div>
+          <div className="mt-8 relative h-72 rounded-2xl overflow-hidden">
+            <div style={{ height: '100%', position: 'relative', width: '100%' }}>
+              <CircularGallery
+                items={galleryItems}
+                bend={3}
+                textColor="#ffffff"
+                borderRadius={0.05}
+                scrollEase={0.02}
+                font="bold 30px Figtree"
+                fontUrl={undefined}
+              />
             </div>
           </div>
 

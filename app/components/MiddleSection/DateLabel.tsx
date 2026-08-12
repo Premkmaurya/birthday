@@ -30,12 +30,12 @@ const DateLabel: React.FC<DateLabelProps> = ({ month, day }) => {
   }, []);
 
   return (
-    <div ref={ref} className="mb-8 md:mb-12">
+    <div ref={ref} className="mb-4 xs:mb-6 sm:mb-8 md:mb-12">
       <div
-        className="text-xs md:text-sm font-bricolage tracking-widest text-gray-500 uppercase"
+        className="text-xs xs:text-[0.8rem] sm:text-sm font-bricolage tracking-widest text-gray-500 uppercase"
         style={{
           letterSpacing: "0.1em",
-          fontSize: "clamp(0.75rem, 1.5vw, 0.875rem)",
+          fontSize: "clamp(0.7rem, 1.5vw, 0.875rem)",
         }}
       >
         {month} {day}

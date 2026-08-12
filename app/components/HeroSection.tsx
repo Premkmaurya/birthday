@@ -14,9 +14,18 @@ const LandingPage = ({
   const [celebration, setCelebration] = useState(false);
 
   const handleImage = () => {
+    // Calculate responsive font size based on viewport width
+    const getResponsiveFontSize = () => {
+      if (typeof window === 'undefined') return '36rem';
+      const width = window.innerWidth;
+      if (width < 640) return '8rem'; // Mobile: 128px
+      if (width < 1024) return '16rem'; // Tablet: 256px
+      return '36rem'; // Desktop: 576px
+    };
+
     const tl = gsap.timeline();
     tl.to(".counter", {
-      fontSize: "36rem",
+      fontSize: getResponsiveFontSize(),
       duration: 0.5,
       ease: "expo.inOut",
       onComplete: () => setImage(true),
@@ -32,7 +41,7 @@ const LandingPage = ({
       filter: "blur(10px)",
       duration: 1.5,
     })
-      .call(() => setCelebration(true), null, "+=0.3")
+      .call(() => setCelebration(true), [], "+=0.3")
       .to(".counter", {
         y: -60,
         duration: 1,
@@ -48,8 +57,9 @@ const LandingPage = ({
           separator=","
           direction="up"
           duration={1.7}
-          className="counter text-[22rem] font-black"
+          className="counter text-[6rem] xs:text-[15rem] sm:text-[18rem] md:text-[20rem] lg:text-[22rem] font-black text-center px-2"
           delay={0.2}
+          onStart={() => {}}
           onEnd={handleImage}
         />
       </div>

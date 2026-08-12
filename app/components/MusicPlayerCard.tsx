@@ -87,26 +87,26 @@ export default function MusicPlayerCard({
   return (
     <div
       ref={cardRef}
-      className="music-card absolute left-1/2 bottom-10 z-30 w-[340px] max-w-[82vw] -translate-x-1/2 rounded-xl border border-white/10 bg-[#111111]/95 p-2 shadow-[0_24px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl text-white"
+      className="music-card absolute left-1/2 bottom-4 xs:bottom-6 sm:bottom-8 z-30 w-[280px] xs:w-[320px] sm:w-[360px] md:w-[400px] max-w-[90vw] -translate-x-1/2 rounded-xl border border-white/10 bg-[#111111]/95 p-2 xs:p-2.5 sm:p-3 shadow-[0_24px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl text-white"
     >
       <audio ref={audioRef} src={src} preload="auto" />
-      <div className="flex items-center gap-3">
-        <div className="relative h-16 w-16 overflow-hidden rounded-[1.25rem] border border-white/10 shadow-lg shadow-black/40">
+      <div className="flex items-center gap-2 xs:gap-3">
+        <div className="relative h-12 w-12 xs:h-14 xs:w-14 sm:h-16 sm:w-16 flex-shrink-0 overflow-hidden rounded-[0.75rem] xs:rounded-[1rem] sm:rounded-[1.25rem] border border-white/10 shadow-lg shadow-black/40">
           <img src={cover} alt="Album cover" className="h-full w-full object-cover" />
         </div>
 
         <div className="flex-1 min-w-0">
-          <div className="text-sm font-semibold text-white">{title}</div>
-          <div className="mt-1 text-[0.65rem] uppercase tracking-[0.28em] text-white/60">{subtitle}</div>
+          <div className="text-xs xs:text-sm sm:text-base font-semibold text-white truncate">{title}</div>
+          <div className="mt-0.5 xs:mt-1 text-[0.55rem] xs:text-[0.65rem] sm:text-[0.7rem] uppercase tracking-[0.15em] xs:tracking-[0.28em] text-white/60">{subtitle}</div>
 
-          <div className="mt-3 h-[5px] overflow-hidden rounded-full bg-white/10">
+          <div className="mt-2 xs:mt-2.5 sm:mt-3 h-1 xs:h-1.5 sm:h-[5px] overflow-hidden rounded-full bg-white/10">
             <div
               className="h-full rounded-full bg-gradient-to-r from-pink-500 via-[#8453FF] to-cyan-400 transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
 
-          <div className="mt-2 flex items-center justify-between text-[0.68rem] text-white/60">
+          <div className="mt-1 xs:mt-1.5 sm:mt-2 flex items-center justify-between text-[0.55rem] xs:text-[0.65rem] sm:text-[0.7rem] text-white/60">
             <span>{formatTime(currentTime)}</span>
             <span>{formatTime(duration)}</span>
           </div>
@@ -115,16 +115,16 @@ export default function MusicPlayerCard({
         <button
           type="button"
           onClick={togglePlayback}
-          className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+          className="flex h-10 w-10 xs:h-11 xs:w-11 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
           aria-label={playing ? "Pause song" : "Play song"}
         >
           {playing ? (
-            <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 fill-current">
               <rect x="6" y="5" width="4" height="14" rx="1" />
               <rect x="14" y="5" width="4" height="14" rx="1" />
             </svg>
           ) : (
-            <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 xs:h-5 xs:w-5 sm:h-6 sm:w-6 fill-current">
               <path d="M8 5v14l11-7z" />
             </svg>
           )}

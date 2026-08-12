@@ -82,15 +82,15 @@ const PreLoader = ({
     <div
       className={`relative w-screen h-screen overflow-hidden bg-black flex items-center justify-center ${showContent && "hidden"}`}
     >
-      <div className="absolute top-0 left-0 w-full h-full bg-transparent z-20 flex items-center justify-center">
-        <div className="text-container w-2/3 h-2/3 text-white flex items-center justify-center gap-3 flex-col rounded-lg">
+      <div className="absolute top-0 left-0 w-full h-full bg-transparent z-20 flex items-center justify-center px-4">
+        <div className="text-container w-full max-w-2xl text-white flex items-center justify-center gap-2 xs:gap-3 sm:gap-4 flex-col rounded-lg">
           <span className="text-1">
-            <h1 className="text-[3rem] font-black text-shadow-md tracking-tight leading-none text-[#FFEBD3] text-shadow-black">
+            <h1 className="text-[1.5rem] xs:text-[2rem] sm:text-[2.5rem] md:text-[3rem] font-black text-shadow-md tracking-tight leading-none text-[#FFEBD3] text-shadow-black text-center">
               NOW SHOWING
             </h1>
           </span>
           <span className="text-2">
-            <h1 className="text-[2.7rem] font-black text-center tracking-tight leading-none text-shadow-md text-[#FFEA93] text-shadow-black">
+            <h1 className="text-[1.3rem] xs:text-[1.75rem] sm:text-[2rem] md:text-[2.7rem] font-black text-center tracking-tight leading-tight text-shadow-md text-[#FFEA93] text-shadow-black">
               SOMETHING SPECIAL <br /> FOR YOU...
             </h1>
           </span>

@@ -27,11 +27,11 @@ const BirthdayMessage: React.FC<BirthdayMessageProps> = ({ message }) => {
   }, []);
 
   return (
-    <div ref={ref} className="mt-6 md:mt-10 max-w-sm">
+    <div ref={ref} className="mt-4 xs:mt-5 sm:mt-6 md:mt-10 max-w-none md:max-w-sm">
       <p
-        className="font-bricolage font-light text-gray-600"
+        className="font-bricolage font-light text-gray-600 px-2 xs:px-0"
         style={{
-          fontSize: "clamp(0.95rem, 2.2vw, 1.15rem)",
+          fontSize: "clamp(0.875rem, 2.2vw, 1.15rem)",
           lineHeight: "1.6",
           fontWeight: 400,
           color: "#555555",

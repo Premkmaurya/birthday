@@ -22,9 +22,9 @@ const AccentLine: React.FC = () => {
   }, []);
 
   return (
-    <div ref={ref} className="mb-8 md:mb-10">
+    <div ref={ref} className="mb-5 xs:mb-6 sm:mb-8 md:mb-10">
       <div
-        className="h-0.5 md:h-1"
+        className="h-0.5 xs:h-0.5 sm:h-0.5 md:h-1"
         style={{
           backgroundColor: "#FF9900",
           width: "clamp(50px, 15vw, 80px)",
