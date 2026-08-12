@@ -25,7 +25,6 @@ export default function Home() {
         opacity: 1,
         duration: 0.8,
         ease: "power2.inOut",
-        onComplete: () => setCelebrate(true),
       },
     );
   }, [showContent]);
@@ -45,6 +44,7 @@ export default function Home() {
               duration={1.7}
               className="counter text-[20rem] font-black"
               delay={0.2}
+              onEnd={() => setCelebrate(true)}
             />
           </div>
         </div>
