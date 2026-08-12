@@ -2,7 +2,6 @@
 import { useState } from "react";
 import CountUp from "./CountUp";
 import MusicPlayerCard from "./MusicPlayerCard";
-import BirthdayBalloons from "./BirthdayBalloons";
 import gsap from "gsap";
 
 const LandingPage = ({
