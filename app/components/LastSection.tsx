@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
-import { FaHeart, FaRotateLeft, FaVolumeHigh, FaVolumeXmark, FaExpand, FaXmark } from "react-icons/fa6";
+import { FaHeart, FaExpand, FaXmark } from "react-icons/fa6";
 
 interface PolaroidItem {
   id: string;
@@ -107,23 +108,16 @@ export default function LastSection() {
   });
   const [maxZ, setMaxZ] = useState(20);
   const [selectedPhoto, setSelectedPhoto] = useState<PolaroidItem | null>(null);
-  const [resetKey, setResetKey] = useState(0);
-  const [isPlayingSound, setIsPlayingSound] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Generate dynamic butterflies
-  const [butterflies, setButterflies] = useState<Butterfly[]>([]);
+  const getButterFlySize = () => {
+    if (typeof window === "undefined") return 24;
+    if (window.innerWidth < 640) return 16 + Math.random() * 8;
+    if (window.innerWidth < 1024) return 20 + Math.random() * 8;
+    return 24 + Math.random() * 12;
+  };
 
-  useEffect(() => {
-    // Determine butterfly size based on screen width
-    const getButterFlySize = () => {
-      if (typeof window === 'undefined') return 24;
-      if (window.innerWidth < 640) return 16 + (Math.random() * 8); // Mobile: 16-24px
-      if (window.innerWidth < 1024) return 20 + (Math.random() * 8); // Tablet: 20-28px
-      return 24 + (Math.random() * 12); // Desktop: 24-36px
-    };
-
-    const list: Butterfly[] = Array.from({ length: 9 }).map((_, i) => ({
+  const buildButterflies = (): Butterfly[] =>
+    Array.from({ length: 9 }).map((_, i) => ({
       id: i,
       color: BUTTERFLY_COLORS[i % BUTTERFLY_COLORS.length].wingMain,
       size: getButterFlySize(),
@@ -132,9 +126,10 @@ export default function LastSection() {
       startY: Math.random() * 75,
       duration: 12 + (i % 4) * 4,
     }));
-    setButterflies(list);
 
-    // Regenerate butterflies on window resize
+  const [butterflies, setButterflies] = useState<Butterfly[]>(() => buildButterflies());
+
+  useEffect(() => {
     const handleResize = () => {
       setButterflies((prev) =>
         prev.map((b) => ({
@@ -144,39 +139,14 @@ export default function LastSection() {
       );
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const bringToFront = (id: string) => {
     const newZ = maxZ + 1;
     setMaxZ(newZ);
     setActiveZIndex((prev) => ({ ...prev, [id]: newZ }));
-  };
-
-  const resetPositions = () => {
-    setResetKey((prev) => prev + 1);
-    const resetZ: Record<string, number> = {};
-    INITIAL_IMAGES.forEach((img, idx) => {
-      resetZ[img.id] = 10 + idx;
-    });
-    setActiveZIndex(resetZ);
-    setMaxZ(20);
-  };
-
-  const toggleSound = () => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio("https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-love-story-112440.mp3");
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.4;
-    }
-    if (isPlayingSound) {
-      audioRef.current.pause();
-      setIsPlayingSound(false);
-    } else {
-      audioRef.current.play().catch(() => {});
-      setIsPlayingSound(true);
-    }
   };
 
   return (
@@ -205,7 +175,7 @@ export default function LastSection() {
         <div className="absolute inset-0 p-2 xs:p-3 sm:p-4 md:p-6 lg:p-8">
           {items.map((item, idx) => (
             <motion.div
-              key={`${item.id}-${resetKey}`}
+              key={item.id}
               drag
               dragConstraints={containerRef}
               dragElastic={0.05}
@@ -243,10 +213,12 @@ export default function LastSection() {
 
                 {/* Photo Container */}
                 <div className="relative w-full h-32 xs:h-36 sm:h-44 md:h-48 lg:h-56 bg-gray-100 rounded-2xs overflow-hidden border border-gray-100">
-                  <img
+                  <Image
                     src={item.src}
                     alt={item.caption}
-                    className="w-full h-full object-cover pointer-events-none transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    className="pointer-events-none object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
 
@@ -314,7 +286,7 @@ export default function LastSection() {
               </button>
 
               <div className="relative w-full h-48 xs:h-56 sm:h-64 md:h-72 rounded-xs overflow-hidden mb-3 xs:mb-4 bg-gray-100">
-                <img src={selectedPhoto.src} alt={selectedPhoto.caption} className="w-full h-full object-cover" />
+                <Image src={selectedPhoto.src} alt={selectedPhoto.caption} fill sizes="(max-width: 640px) 100vw, 40vw" className="object-cover" />
                 <div className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full shadow-md">
                   <FaHeart className="w-4 h-4 fill-current" />
                 </div>
@@ -325,7 +297,9 @@ export default function LastSection() {
                   {selectedPhoto.caption} {selectedPhoto.emoji}
                 </h3>
                 <p className="font-sans text-xs xs:text-sm text-gray-600 italic leading-relaxed">
-                  "{selectedPhoto.memoryText || "A priceless memory to cherish forever."}"
+                  {"“"}
+                  {selectedPhoto.memoryText || "A priceless memory to cherish forever."}
+                  {"”"}
                 </p>
               </div>
             </motion.div>
@@ -384,7 +358,7 @@ function FlyingButterfly({ butterfly }: { butterfly: Butterfly }) {
         xmlns="http://www.w3.org/2000/svg"
         animate={{ scaleX: [1, 0.3, 1] }}
         transition={{
-          duration: 0.35 + Math.random() * 0.15,
+          duration: 0.4,
           repeat: Infinity,
           ease: "easeInOut",
         }}

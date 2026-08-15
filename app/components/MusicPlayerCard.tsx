@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
@@ -86,17 +87,17 @@ export default function MusicPlayerCard({
     >
       <audio ref={audioRef} src={src} preload="auto" />
       <div className="flex items-center gap-2 xs:gap-3">
-        <div className="relative h-12 w-12 xs:h-14 xs:w-14 sm:h-16 sm:w-16 flex-shrink-0 overflow-hidden rounded-[0.75rem] xs:rounded-[1rem] sm:rounded-[1.25rem] border border-white/10 shadow-lg shadow-black/40">
-          <img src={cover} alt="Album cover" className="h-full w-full object-cover" />
+        <div className="relative h-12 w-12 xs:h-14 xs:w-14 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-xl border border-white/10 shadow-lg shadow-black/40">
+          <Image src={cover} alt="Album cover" width={96} height={96} className="h-full w-full object-cover" />
         </div>
 
         <div className="flex-1 min-w-0">
           <div className="text-xs xs:text-sm sm:text-base font-semibold text-white truncate">{title}</div>
           <div className="mt-0.5 xs:mt-1 text-[0.55rem] xs:text-[0.65rem] sm:text-[0.7rem] uppercase tracking-[0.15em] xs:tracking-[0.28em] text-white/60">{subtitle}</div>
 
-          <div className="mt-2 xs:mt-2.5 sm:mt-3 h-1 xs:h-1.5 sm:h-[5px] overflow-hidden rounded-full bg-white/10">
+          <div className="mt-2 xs:mt-2.5 sm:mt-3 h-1 xs:h-1.5 sm:h-1.25 overflow-hidden rounded-full bg-white/10">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-pink-500 via-[#8453FF] to-cyan-400 transition-all duration-300"
+              className="h-full rounded-full bg-linear-to-r from-pink-500 via-[#8453FF] to-cyan-400 transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -110,7 +111,7 @@ export default function MusicPlayerCard({
         <button
           type="button"
           onClick={togglePlayback}
-          className="flex h-10 w-10 xs:h-11 xs:w-11 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+          className="flex h-10 w-10 xs:h-11 xs:w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
           aria-label={playing ? "Pause song" : "Play song"}
         >
           {playing ? (

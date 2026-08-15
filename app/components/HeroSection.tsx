@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { useState } from "react";
 import CountUp from "./CountUp";
 import MusicPlayerCard from "./MusicPlayerCard";
@@ -65,9 +66,13 @@ const LandingPage = ({
       </div>
       {image && (
         <div className="absolute w-full h-full top-0 left-0 z-10">
-          <img
+          <Image
             src="/download.jpg"
-            className="image w-full h-full object-cover"
+            alt=""
+            fill
+            sizes="100vw"
+            className="image h-full w-full object-cover"
+            priority
           />
           <div className="absolute inset-0 bg-black/50" />
         </div>
