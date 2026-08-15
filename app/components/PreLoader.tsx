@@ -1,8 +1,67 @@
 "use client";
-import React from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { SplitText } from "gsap/SplitText";
+
+import { useEffect, useState } from "react";
+
+export const criticalImages = [
+  "/left-section.png",
+  "/right-section.png",
+  "/download.jpg",
+  "/photos/first.jpg",
+  "/photos/second.jpg",
+  "/photos/third.jpg",
+];
+
+const criticalAudio = ["/Happy Birthday.mp3"];
+
+export const preloadImage = (src: string): Promise<void> =>
+  new Promise((resolve) => {
+    const img = new Image();
+
+    img.onload = () => resolve();
+    img.onerror = () => {
+      console.warn(`Asset preloader: image failed to load (${src})`);
+      resolve();
+    };
+
+    img.src = src;
+  });
+
+export const preloadAudio = (src: string): Promise<void> =>
+  new Promise((resolve) => {
+    const audio = new Audio();
+    let settled = false;
+    const timeoutMs = 8000;
+
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeoutId);
+      audio.removeEventListener("canplaythrough", onReady);
+      audio.removeEventListener("error", onError);
+      resolve();
+    };
+
+    const onReady = () => finish();
+    const onError = () => {
+      console.warn(`Asset preloader: audio failed to load (${src})`);
+      finish();
+    };
+
+    const timeoutId = window.setTimeout(() => {
+      console.warn(`Asset preloader: audio timed out after ${timeoutMs}ms (${src})`);
+      finish();
+    }, timeoutMs);
+
+    audio.preload = "auto";
+    audio.src = src;
+    audio.addEventListener("canplaythrough", onReady, { once: true });
+    audio.addEventListener("error", onError, { once: true });
+    audio.load();
+
+    if (audio.readyState >= 3) {
+      finish();
+    }
+  });
 
 const PreLoader = ({
   setShowContent,
@@ -11,105 +70,90 @@ const PreLoader = ({
   setShowContent: (show: boolean) => void;
   showContent: boolean;
 }) => {
-  gsap.registerPlugin(useGSAP);
-  useGSAP(() => {
-    const tl = gsap.timeline();
-    const split1 = new SplitText(".text-1", { type: "lines, words, chars" });
-    const split2 = new SplitText(".text-2", { type: "lines, words, chars" });
+  const [isReady, setIsReady] = useState(false);
+  const [loadedAssets, setLoadedAssets] = useState(0);
+  const [progress, setProgress] = useState(0);
 
-    tl.to(".img-container", {
-      opacity: 1,
-      duration: 0.8,
-      ease: "power2.inOut",
-    })
-      .fromTo(
-        split1.chars,
-        {
-          opacity: 0,
-          y: 20,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.05,
-          ease: "power2.inOut",
-        },
-      )
-      .fromTo(
-        split2.chars,
-        {
-          opacity: 0,
-          y: 20,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.05,
-          ease: "power2.inOut",
-        },
-      )
-      .to(".text-container", {
-        opacity: 0,
-        y: 10,
-        duration: 0.8,
-        ease: "power2.inOut",
-      })
-      .to(".left-panel", {
-        x: "-100%",
-        duration: 1,
-        ease: "power2.inOut",
-      })
-      .to(
-        ".right-panel",
-        {
-          x: "100%",
-          duration: 1,
-          ease: "power2.inOut",
-          onUpdate: function () {
-            if (this.progress() >= 0.99) {
-              setShowContent(true);
-              this.kill();
-            }
-          },
-        },
-        "<",
+  useEffect(() => {
+    let cancelled = false;
+    const totalAssets = criticalImages.length + criticalAudio.length;
+
+    const loadCriticalAssets = async () => {
+      const tasks = [
+        ...criticalImages.map((src) => () => preloadImage(src)),
+        ...criticalAudio.map((src) => () => preloadAudio(src)),
+      ];
+
+      let completed = 0;
+
+      await Promise.all(
+        tasks.map(async (task) => {
+          try {
+            await task();
+          } catch (error) {
+            console.warn("Asset preloader: failed to resolve a critical asset.", error);
+          } finally {
+            if (cancelled) return;
+
+            completed += 1;
+            setLoadedAssets(completed);
+            setProgress(Math.round((completed / totalAssets) * 100));
+          }
+        }),
       );
-  }, {});
+
+      if (cancelled) return;
+
+      setIsReady(true);
+    };
+
+    loadCriticalAssets();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [setShowContent]);
+
+  useEffect(() => {
+    if (!isReady) return;
+
+    const timer = window.setTimeout(() => {
+      setShowContent(true);
+    }, 400);
+
+    return () => window.clearTimeout(timer);
+  }, [isReady, setShowContent]);
 
   return (
     <div
-      className={`relative w-screen h-screen overflow-hidden bg-black flex items-center justify-center ${showContent && "hidden"}`}
+      className={`fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-[#10090D] text-white transition-opacity duration-500 ease-out ${
+        showContent ? "opacity-0 pointer-events-none" : "opacity-100"
+      }`}
+      aria-live="polite"
     >
-      <div className="absolute top-0 left-0 w-full h-full bg-transparent z-20 flex items-center justify-center px-4">
-        <div className="text-container w-full max-w-2xl text-white flex items-center justify-center gap-2 xs:gap-3 sm:gap-4 flex-col rounded-lg">
-          <span className="text-1">
-            <h1 className="text-[1.3rem] xs:text-[1.75rem] sm:text-[2rem] md:text-[2.7rem] font-black text-center tracking-tight leading-tight text-shadow-md text-[#FFEA93] text-shadow-black">
-              SOMETHING SPECIAL <br /> FOR YOU
-            </h1>
-          </span>
-          <span className="text-2">
-            <h1 className="text-[1.5rem] xs:text-[2rem] sm:text-[2.5rem] md:text-[3rem] font-black text-shadow-md tracking-tight leading-none text-[#FFEBD3] text-shadow-black text-center">
-              NOW SHOWING
-            </h1>
-          </span>
-        </div>
-      </div>
-      <div className="img-container absolute top-0 left-0 w-full h-full z-10 opacity-0">
-        <div className="left-panel absolute top-0 left-0 z-14 w-1/2 h-full flex items-center justify-center shadow-lg shadow-black">
-          <img
-            src="/left-section.png"
-            className="w-full h-full object-fill"
-            alt=""
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,126,163,0.35),_transparent_45%),radial-gradient(circle_at_bottom,_rgba(255,215,85,0.18),_transparent_40%)]" />
+
+      <div className="relative z-10 w-full max-w-xl px-6 text-center">
+        <p className="mb-4 text-[0.65rem] font-medium uppercase tracking-[0.5em] text-pink-200/80">
+          Preparing something special...
+        </p>
+
+        <h1 className="mb-8 text-3xl font-black tracking-tight text-[#FFE7A9] sm:text-5xl">
+          Loading your memories...
+        </h1>
+
+        <div className="mb-3 h-2.5 overflow-hidden rounded-full border border-white/10 bg-white/5">
+          <div
+            className="h-full rounded-full bg-gradient-to-r from-pink-400 via-fuchsia-400 to-yellow-300 transition-[width] duration-300 ease-out"
+            style={{ width: `${progress}%` }}
           />
         </div>
-        <div className="right-panel absolute top-0 right-0 w-1/2 h-full flex items-center justify-center shadow-lg">
-          <img
-            src="/right-section.png"
-            className="w-full h-full object-fill"
-            alt=""
-          />
+
+        <div className="flex items-center justify-between text-[0.7rem] font-medium uppercase tracking-[0.32em] text-white/70">
+          <span>{progress}%</span>
+          <span>
+            {loadedAssets}/{criticalImages.length + criticalAudio.length}
+          </span>
         </div>
       </div>
     </div>

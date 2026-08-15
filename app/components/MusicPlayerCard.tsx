@@ -55,11 +55,6 @@ export default function MusicPlayerCard({
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
 
-    audio
-      .play()
-      .then(() => setPlaying(true))
-      .catch(() => setPlaying(false));
-
     return () => {
       audio.pause();
       audio.removeEventListener("loadedmetadata", onLoaded);
