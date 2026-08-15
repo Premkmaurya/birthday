@@ -10,7 +10,7 @@ const formatTime = (seconds: number) => {
 };
 
 export default function MusicPlayerCard({
-  src = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+  src = "/Happy Birthday.mp3",
   cover = "/download.jpg",
   title = "Sweety Song",
   subtitle = "BIRTHDAY PLAYLIST",

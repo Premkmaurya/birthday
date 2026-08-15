@@ -18,7 +18,7 @@ interface PolaroidItem {
 const INITIAL_IMAGES: PolaroidItem[] = [
   {
     id: "img-1",
-    src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+    src: "/photos/first.jpg",
     caption: "My Love",
     initialX: 20,
     initialY: 40,
@@ -27,7 +27,7 @@ const INITIAL_IMAGES: PolaroidItem[] = [
   },
   {
     id: "img-2",
-    src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80",
+    src: "/photos/second.jpg",
     caption: "Dream Girl",
     emoji: "💫",
     initialX: 160,
@@ -37,7 +37,7 @@ const INITIAL_IMAGES: PolaroidItem[] = [
   },
   {
     id: "img-3",
-    src: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80",
+    src: "/photos/third.jpg",
     caption: "Book",
     initialX: 320,
     initialY: 50,
@@ -46,7 +46,7 @@ const INITIAL_IMAGES: PolaroidItem[] = [
   },
   {
     id: "img-4",
-    src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80",
+    src: "/photos/fourth.png",
     caption: "Queen",
     emoji: "👑",
     initialX: 470,
@@ -56,7 +56,7 @@ const INITIAL_IMAGES: PolaroidItem[] = [
   },
   {
     id: "img-5",
-    src: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80",
+    src: "/photos/fifth.png",
     caption: "Sunshine",
     emoji: "🌼",
     initialX: 370,
@@ -66,7 +66,7 @@ const INITIAL_IMAGES: PolaroidItem[] = [
   },
   {
     id: "img-6",
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+    src: "/photos/sixth.png",
     caption: "Beautiful",
     emoji: "🌸",
     initialX: 580,

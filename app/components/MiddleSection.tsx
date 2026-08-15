@@ -12,8 +12,9 @@ const MiddleSection: React.FC = () => {
 
   // Gallery items from public photos
   const galleryItems = [
-    { image: '/photos/photo1.jpg', text: 'Cherished Moment' },
-    { image: '/photos/photo2.jpg', text: 'Sweet Memory' },
+    { image: '/photos/first.jpg', text: 'Cherished Moment' },
+    { image: '/photos/second.jpg', text: 'Sweet Memory' },
+    { image: '/photos/third.jpg', text: 'Beautiful Moment' },
   ];
 
   return (
